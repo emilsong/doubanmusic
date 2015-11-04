@@ -1,0 +1,17 @@
+http://service.weibo.com/share/share.php?appkey=3163308509&url=http://douban.fm/?start=670248gc900g1000509&cid=1000509&title=分享 许巍 的单曲《蓝莲花》（来自豆瓣FM-#单曲循环 MHz#）&source=&sourceUrl=&content=utf-8&pic=http://img3.douban.com/lpic/s3839391.jpg
+
+规则sid g ssid g channelId
+
+
+http://widget.renren.com/dialog/share?title=分享 陈奕迅 的单曲《不要说话》&srcUrl=http://douban.fm/?start=1383779g1737g1&cid=1&resourceUrl=http://douban.fm/?start=1383779g1737g1&cid=1&pic=http://img3.douban.com/lpic/s3146476.jpg&description=来自豆瓣FM
+
+
+http://share.v.t.qq.com/index.php?c=share&a=index&url=http://douban.fm/?start=1383779g1737g1&cid=1&appkey=801227714&site=&pic=http://img3.douban.com/lpic/s3146476.jpg&title=分享 陈奕迅 的单曲《不要说话》（来自豆瓣FM-#华语 MHz#） 
+
+
+http://shuo.douban.com/!service/share?name=我也很想他&href=http://douban.fm/?start=262387g83e2g1&cid=1&image=http://img5.douban.com/lpic/s4167639.jpg&text=&desc=(来自豆瓣FM-华语 MHz)&apikey=079055d6a0d5ddf816b10183e28199e8&target_type=rec&target_action=0&object_kind=3043&object_id=262387&action_props={"url": "http://douban.fm/?start=262387g83e2g1&cid=1", "title": "我也很想他"}
+
+
+//同步试听记录 返回"ok"
+http://douban.fm/j/mine/playlist?type=e&sid=189983&channel=20&pt=231.1&pb=64&from=mainsite&r=8f04cc1be3
+

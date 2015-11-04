@@ -1,0 +1,10 @@
+
+.jp-share-wrap{position:absolute;top:198px; left:30px;}
+.jp-share{float:left;color:#CCCCCC; font-size:12px; text-decoration:none; clear:both; margin-top:4px}
+.jp-share-icon{height:18px;  margin-top:-2px;background-color:#fff; }
+.jp-share-icon i{background-image:url(share_icons.png);background-repeat:no-repeat;height:18px;display:block;float:left;margin:0 2px;opacity:0.2;}
+.jp-share-icon i:hover{opacity:1.0;}
+.share-db{background-position:-71px 0;width:16px;}
+.share-weibo{background-position:-48px 0;width:20px;}
+.share-qq{background-position:-117px 0;width:16px;}
+.share-renren{background-position:-20px 0; width:23px;}
