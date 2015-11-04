@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>douban fm for chrome</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<style>
+*{margin:0px;padding:0px}
+a:focus{outline:none;}
+a{cursor:pointer}
+.player{padding:15px 0 20px 30px; clear:both}
+.lyric{width:280px; height:40px;line-height:40px;margin-top:16px; font-size:12px;text-align:center;overflow:hidden;font-family:arial,helvetica,sans-serif;}
+.header{border-bottom:1px dashed #ccc;width:260px; margin-left:10px; height:36px; line-height:36px;}
+.title{position:absolute;display:block;top: 5px;left: 10px;width: 25px;height: 25px;}
+.title img{border-radius: 25px; width: 25px; height: 25px;}
+
+.header a{float:right; padding-top:4px; color:#CCCCCC; font-size:12px; padding-right:4px; font-family: Arial}
+.header a img{vertical-align: middle; padding-left: 1px;}
+.header b,.header s{float:left;}
+.header b{padding-left:30px;padding-top:3px; color:#007722; font-size:16px; font-weight:normal;font-family:Microsoft Yahei,arial,helvetica,sans-serif;}
+.header i{margin:16px 5px 0 0; float: right;width: 11px; height: 11px;}
+.header s{font-style: normal;margin:16px 0 0 2px;width: 13px; height: 13px; cursor: pointer;}
+.header s:hover{background:url(douban/faved.png);}
+.header .faved{background:url(douban/faved.png);}
+.header .fav{background:url(douban/fav.png);}
+.playing{background:url(douban/playing.gif);}
+.waiting{background:url(douban/waiting.gif);}
+
+.player .info p{float:left;height:75px; overflow:hidden; width:75px;}
+.player .info h1{clear:both; height:28px;line-height:28px;font-size:12px; font-weight:normal; color:#009966;font-family:Microsoft Yahei,arial,helvetica,sans-serif;}
+.player .info dl{float:left;padding-left:10px;width: 156px;overflow: hidden; }
+.player .info dl dt{font-size:24px; max-height:48px; line-height: 24px; font-family:Microsoft Yahei,arial,helvetica,sans-serif;max-width: 125px;overflow:hidden}
+.player .info dl dd{font-size:12px; padding-top:5px;}
+.player .info dl dd b{font-weight:normal;font-family:Microsoft Yahei,arial,helvetica,sans-serif;height: 17px;overflow: hidden;display: inline-block;}
+
+
+.jp-audio{ width:240px;}
+.jp-progress{height:2px; background-color:#E5E5E8; margin-bottom:5px;}
+.jp-seek-bar{height:2px; cursor: pointer;}
+.jp-play-bar{height:2px;background-color:#9DD6C5;}
+
+.jp-volume-bar{height:3px;background-color:#E5E5E8; width:50px;cursor:pointer;margin:4px 0 0 3px;}
+.jp-volume-bar-value{height:3px;background-color:#333;}
+
+
+.jp-controls a,.jp-controls div{float:left}
+
+.jp-play{background:url(douban/style.png) -119px -64px no-repeat; width:26px;height:26px;}
+.jp-pause{background:url(douban/style.png) -92px -64px no-repeat; width:26px;height:26px; display:none}
+.jp-play,.jp-pause{position:absolute;top:40px;left:245px;}
+.jp-mute{background:url(douban/style.png) -62px -72px no-repeat; width:8px;height:10px;}
+.jp-unmute{background:url(douban/style.png) -76px -72px no-repeat; width:8px;height:10px;}
+.jp-controls{float:right;margin-top:1px;}
+.jp-time-holder{ float:right;margin-top:-1px; margin-right:6px}
+.jp-time-holder div{font-size:10px; font-family:Verdana;}
+
+.jp-duration,.jp-volume,.jp-unmute{display:none}
+.jp-controls-more{clear:both;margin-top:40px;height:1px;}
+.jp-controls-more a{float:right;margin-left:15px;}
+.jp-controls-more span{float:left; cursor:pointer}
+.jp-previous,.jp-next{background:url(douban/style.png) -39px -42px no-repeat; width:31px; height:17px; display:none}
+.jp-del{background:url(douban/style.png) -42px -4px no-repeat; width:22px;height:28px;margin-top: -6px; display:none}
+.jp-like{background:url(douban/style.png) -74px -5px no-repeat; width:27px;height:24px;margin-top: -4px;}
+.jp-liked{background:url(douban/style.png) -74px -37px no-repeat; width:27px;height:24px;margin-top: -4px; }
+.jp-previous{-webkit-transform: rotate(180deg);}
+.jp-next{top:20px;}
+
+
+.lyric-normal{color:#007722;background-color:#ECF6ED;}
+.lyric-hover{color:#007722;background-color:#FFF}
+
+.arrow{background:url(douban/style.png) 0 0 no-repeat; width:16px;height:85px;float:right;margin-top:55px}
+.arrow-back{position:absolute;top: 0px;left: 264px;z-index: 12; -webkit-transform:rotate(180deg);}
+.arrow:hover{background-position:-16px 0;}
+.cates{width:296px; position:absolute; left:-280px; height:195px;top:40px; z-index: 40}
+.cates .body{float:left;background-color:#EFF5F2; width:280px; height:198px; overflow:hidden;}
+.cates .body .tag{width: 90%;height: 25px;line-height: 25px;margin: 0 auto;background-color: #fff;margin-top: 10px;}
+.tag ul{float:left;margin:0 5px; }
+.tag p{float:right;margin-top:-1px; position:relative}
+.tag ul li{float:left;font-size:12px; list-style:none; margin: 0 2px;}
+.tag ul li a{padding:2px}
+.tag ul li a:hover,.tag ul li a.hover{background-color:#9dd6c5; color:#fff;}
+.search{background:url(douban/style.png) -39px -70px no-repeat; width:14px; height:14px; display:inline-block; right:5px;position: absolute;top: 7px;}
+.tag p input{width:70px;font-size:12px;border-width:0px;margin-right:20px;}
+
+.cates .lists{margin-left:8px; height:154px; overflow-y:scroll;width:300px}
+.cates .lists li div{width:45px;height:45px;margin:0 auto; position:relative; }
+.cates .lists li div img{border-radius: 25px;cursor: pointer;}
+.cates .lists li div img:hover{}
+.cates .lists li{float:left;list-style:none; text-align:center; width:62px; padding:8px 0 0 0; overflow:hidden}
+
+.cates .lists li a{display:block; font-size:12px; padding-top:8px; width:60px; overflow:hidden;white-space:nowrap;}
+.cates .lists li i{position: absolute;top: 0;right: -8px;font-size: 10px;font-style: normal;display: none;cursor: pointer;width: 10px;height: 10px;line-height: 10px;}
+.cates .lists li:hover i{display: block;}
+.cates .lists li i:hover{background-color: #9dd6c5; color: #fff}
+.cates .cate{ height:154px; padding:10px; display:none; width:220px;}
+.cates .cate li{float:left;list-style:none; padding:6px 8px; font-size:12px; cursor:pointer}
+.cates .cate li:hover,.cates .cate li.hover{color: #5b9; text-decoration:underline}
+
+.header dl{background-color: #fff; position: absolute; top: 30px;left: 200px;font-size: 12px;z-index: 100;width: 57px;border: 1px solid #ccc;padding: 6px; display: none}
+.header dl dd,.header dl dt{cursor: pointer;line-height: 20px;
+text-align: right;}
+.header dl dd:hover,.header dl dt:hover{color:#5b9;}
+.header dl dt{display: none}
+
+.login{position: absolute;top: 0px;left: 280px;background-color: #fff;width: 240px;padding-top: 10px;padding-left: 60px;margin-top: 40px;margin-left:20px; ;font-size: 12px; z-index: 15}
+.login p{line-height: 27px;}
+.login p .button{width: 50px; height: 22px}
+.login p a{color: #000}
+
+.tips{position: absolute;background-color: #000;color: #fff;opacity: 0.5;text-align: center;top: 200px;display: none;padding: 2px 5px;font-size: 12px;}
+
+.cycle{background:url(douban/style.png) -75px -85px no-repeat;width: 13px;height: 12px;top: 140px;right: 8px; position: absolute; cursor: pointer;}
+.cycle1{background-position: -59px -85px;}
+
+#shareTool{position: absolute;top: 166px; left:30px; background-color: #fff; height:17px;}
+#shareTool .share{display: none;  }
+#shareTool.show .share{display: block;}
+.sharetip,.share a{background:url(douban/share_icons.png) no-repeat; float: left;}
+.share{float: left;}
+.share a,.sharetip{width: 16px; height: 16px; text-indent: -9999px; display: block; margin: 0 1px;}
+.sharetip{background-position: 0 -108px;}
+.share .sina{background-position: 0 0;}
+.share .renren{background-position: 0 -36px;}
+.share .qq{background-position: 0 -72px;}
+.share .qzone{background-position: 0 -18px;}
+.share .tencent{background-position: 0 -54px;}
+.share .douban{background-position: 0 -90px;}
+
+#songChannel{position: absolute;top: 166px; left:50px; background:url(douban/music.png) no-repeat; width:85px; height:17px; cursor:pointer}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+<span class="title">
+	<img id="channel_cover" src="logo.png" />
+</span>
+<b id="channel_title">豆瓣电台MHZ</b>
+<s id="channel_fav" class="fav"></s>
+<a id="user_status"><span>我的电台</span><img id="user_pro" src="douban/pro_icon.gif" /></a>
+<i id="channel_status" class="waiting"></i>
+<dl id="user_menu">
+	<dt>状态</dt>
+	<dd id="radio_private">私人电台</dd>
+	<dd id="radio_red">红心电台</dd>
+	<dd class="logout">退出登录</dd>
+</dl>
+</div>
+<div class="player">
+	<div class="info">
+		<p><a id="coverlink" href="#" target="_blank"><img id="cover" width="75" src="logo.png" /></a></p>
+		<dl><dt id="singer">歌手</dt>
+		<dd><b id="album">&lt; 专辑信息 &gt;</b></dd></dl>
+		<h1 id="song">歌曲</h1>
+	</div>
+	
+	<div id="jp_container_1" class="jp-audio">
+
+		<div class="jp-progress">
+			<div class="jp-seek-bar">
+				<div class="jp-play-bar"></div>
+			</div>
+		</div>
+		
+		
+		<div class="jp-controls">
+			<a class="jp-play" tabindex="1"></a>
+			<a class="jp-pause" tabindex="1"></a>
+			<a class="jp-mute" tabindex="1"></a>
+			<a class="jp-unmute" tabindex="1"></a>
+			<div class="jp-volume">
+				<div class="jp-volume-bar">
+					<div class="jp-volume-bar-value"></div>
+				</div>
+			</div>
+		</div>	
+
+		<div class="jp-time-holder">
+			<div class="jp-current-time"></div>
+			<div class="jp-duration"></div>
+		</div>		
+		
+		<div class="jp-controls-more">
+			<a class="jp-next" tabindex="1"></a>
+			<a class="jp-previous" tabindex="1"></a>
+			<a class="jp-del" tabindex="1"></a>
+			<a class="jp-like" tabindex="1"></a>
+		</div>
+	</div>
+</div>
+<div class="lyric lyric-normal">
+
+</div>
+
+<div class="cates">
+<div class="body">
+	<div class="tag">
+	<ul>
+	<li><a data-type="hot" class="hover">热门</a></li>
+	<li><a data-type="up">上升</a></li>
+	<li><a data-type="cate">分类</a></li>
+	<li id="tag_fav"><a data-type="fav">收藏</a></li>
+	</ul>
+	<p>
+	<input type="text" id="keyword" placeholder="搜索电台" value=""/>
+	<a class="search"></a>
+	</p>
+	</div>
+
+	<ul id="lists" class="lists">
+		
+	</ul>
+	
+	<ul id="cate" class="cate">
+		<li data-id="335">摇滚</li>
+		<li data-id="326">古典</li>
+		<li data-id="327">爵士</li>
+		<li data-id="337">民谣/乡村</li>
+		<li data-id="331">流行</li>
+		<li data-id="325">电子</li>
+		<li data-id="328">原声配乐</li>
+		<li data-id="332">轻音乐</li>
+		<li data-id="334">说唱</li>
+		<li data-id="330">雷鬼</li>
+		<li data-id="329">拉丁</li>
+		<li data-id="333">世界音乐</li>
+		<li data-id="324">布鲁斯</li>
+		<li data-id="336">放克/灵歌/R&amp;B</li>
+		
+	</ul>
+
+
+	
+</div>
+<a class="arrow"></a>
+</div>
+
+<div class="login">
+	<form method="post" action="https://www.douban.com/accounts/login" id="login_form">
+		<p><input type="text" placeholder="输入邮箱或用户名" id="login_alias" name="alias" class="text pop_email" tabindex="1"></p>
+		<p><input type="password" placeholder="输入密码" id="login_password" name="form_password" class="text" tabindex="2"></p>
+		<p><input type="text" name="captcha_solution" placeholder="输入下图中的单词" id="captcha_solution" class="text" tabindex="3"></p>
+        
+        <p><img id="captcha" width="130" height="35" class="captcha" title="看不清楚?点图片可以换一个" src=""></p>
+        <p><input id="remember" checked="checked" type="checkbox" name="remember" tabindex="4"><label for="remember">记住登录状态</lable></p>
+        <p><input type="button" id="btn-submit" class="button" value="登 录" tabindex="5">&nbsp;&nbsp;
+        	<input type="button" id="btn-cancel" class="button" value="取 消" tabindex="6">&nbsp;&nbsp;<a title="支持第三方网站用户" href="http://douban.fm" target="_blank">到豆瓣登录</a></p>
+        <input type="hidden" name="task" value="sync_channel_list">
+        <input type="hidden" id="captcha_id" name="captcha_id" value="">
+	</form>
+
+</div>
+
+<div class="tips"></div>
+<div class="cycle"></div>
+<div id="songChannel" data-sid=""></div>
+
+
+<script type="text/javascript" src="js/settings.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>选项</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+*{margin:0;padding:0;font-family:Tahoma;font-size:12px;}
+.logo{margin:30px 0 30px 100px}
+.bg{background-color:#E1E8E5; width:100%; height:300px; padding:30px 0;}
+.menu{float:left;width:240px; height:200px; margin-left:100px;}
+.menu a{display:block; background-color:#D3DDD8;width:180px;height:30px;margin-top:10px;line-height:30px;padding-left:20px;cursor:pointer}
+.menu a:hover,.menu a.hover{background-color:#9DD6C5}
+.op,.ab{float:left; max-width:500px;}
+dt{font-size:14px;}
+dt,dd{line-height:35px}
+label{margin-left:3px; margin-right:10px;}
+dd input{vertical-align: middle;}
+.op{display:none}
+.line,.ab dt{border-bottom:1px solid #D3DDD8}
+a{color:#000}
+</style>
+<body>
+
+<div class="logo">
+<img src="http://img3.douban.com/pics/fm/home/fm_logoV1.png"/>
+</div>
+
+<div class="bg">
+
+<p class="menu">
+<a id="op">扩展设置</a>
+<a id="ab" class="hover">关于</a>
+</p>
+
+<dl class="op">
+<dt>选项设置</dt>
+<dd class="line">
+<input type="checkbox" id="del" /><label for="del">显示删除按钮</label>
+<input type="checkbox" id="prev" /><label for="prev">显示上一曲按钮</label>
+<input type="checkbox" id="next" /><label for="next">显示下一曲按钮</label>
+<input type="checkbox" id="lyric" /><label for="lyric">允许显示歌词</label>
+<br/>
+<input type="checkbox" id="notify" /><label for="notify">显示浏览器通知</label>
+显示时长<input type="input" id="notifySpan" style="width:24px; padding-left:2px" value=""/>(秒)&nbsp;
+<input type="checkbox" id="blockad" /><label for="blockad">屏蔽广告</label>
+</dd>
+
+
+<dt>PRO选项（仅pro用户适用）<a href="http://douban.fm/upgrade/?from=chrome_ext-douban_yuanwei" target="_blank">升级</a></dt>
+<dd class="line">
+<input type="radio" id="k192" data-val="192" name="kbs"/><label for="k192">192kps</label>
+<input type="radio" id="k128" data-val="128" name="kbs"/><label for="k128">128kps</label>
+<input type="radio" id="k64" data-val="64" name="kbs"/><label for="k64">64kps</label>
+</dd>
+
+<dt>快捷键说明</dt>
+<dd  class="line">
+	→下一首 ←上一首 ↑音量增加 ↓音量减少 P播放/暂停</dd>
+</dl>
+
+<dl class="ab">
+<dt>豆瓣FM原味版 Chrome扩展&nbsp;<b style="color:red">更新了:)</b></dt>
+<dd>原味呈现官方豆瓣电台。更简单，更易用，搜索你喜欢的电台，不用打开网页聆听电台，优化完整体验，全面支持pro高音质</dd>
+<dt>更新说明&nbsp;&nbsp;<span>版本：<font style="color:#55BB99">4.1</font>  最后更新：<font style="color:#55BB99">2014/11/28</font></span></dt>
+<dd>修复删除歌曲慢的问题（感谢LiWay反馈），修正歌词展示的时间（感谢鶄-vie反馈），添加加红心操作快捷键F,删除操作快捷键D（感谢nasa2046反馈）</dd>
+<dt>意见反馈</dt>
+<dd>欢迎使用豆瓣FM原味版，有任何意见和建议请联系作者</dd>
+<dd><a href="http://www.douban.com/people/emil/" target="_blank">豆瓣</a>  <a href="http://weibo.com/imemil" target="_blank">新浪微博</a>  emilsong@gmail.com</dd>
+</dl>
+
+</div>
+<script type="text/javascript" src="js/settings.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/options.js"></script>
+</body>
+
+</html>
